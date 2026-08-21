@@ -1,0 +1,34 @@
+# Smithery configuration for CIGAM
+# Schema: https://smithery.ai/docs/build/project-config
+# Remote HTTP MCP — server hosted at https://api.mcp.ai/p_cigam
+
+name: cigam-mcp
+displayName: "CIGAM"
+description: >
+  ERP CIGAM (gestão para indústria, varejo e franquias) por captura de sessão com a sua autorização. Como o CIGAM não tem API pública, você informa a sua Chave de acesso, usuário e senha e a plataforma entra na sua conta para ler os seus próprios dados, na mesma API que o portal CIGAM usa. Somente leitura: vendas, notas fiscais, contas a pagar e a receber, fechamento de caixa, lançamentos financeiros e fornecedores.
+
+version: 0.1.0
+license: MIT
+homepage: https://github.com/mcp-dir/cigam-mcp
+repository: https://github.com/mcp-dir/cigam-mcp
+
+tags:
+  - cigam
+  - brazil
+  - fin
+  - horizontal
+  - read-write
+
+# Remote HTTP MCP — sem startCommand local (servidor já hospedado)
+startCommand:
+  type: http
+  url: https://api.mcp.ai/p_cigam
+
+auth:
+  type: oauth2
+  resourceMetadataUrl: https://api.mcp.ai/p_cigam/.well-known/oauth-protected-resource
+  fallback:
+    type: agent-auth
+    description: >
+      Para clientes sem OAuth 2.1. O agente expõe uma tool authenticate(token).
+      Usuário gera o JWT em https://app.mcp.ai/agent-auth e cola no chat.
